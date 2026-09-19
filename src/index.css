@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* ============================================
+   DESIGN TOKENS — "Living Portfolio" palette
+   In Tailwind v4, anything defined here under
+   --color-* or --font-* automatically becomes a
+   utility class. e.g. --color-gold  →  bg-gold / text-gold
+                        --font-display →  font-display
+   ============================================ */
+@theme {
+  /* Backgrounds */
+  --color-cream: #faf6ee;       /* dominant background */
+  --color-cream-soft: #f1e9da;  /* slightly deeper cream, for section variation */
+
+  /* Text & anchors */
+  --color-brown: #3b2a1f;       /* deep brown — headings, major text, anchors */
+  --color-brown-soft: #6b5849;  /* softer brown — body copy */
+
+  /* Dark sections, used sparingly (e.g. footer) */
+  --color-olive: #3f4a34;
+  --color-olive-soft: #4d5a40;
+
+  /* Accents */
+  --color-gold: #b68a35;        /* muted mustard / antique gold — primary accent */
+  --color-burgundy: #7a2e3b;    /* deep burgundy — secondary accent, sparing */
+  --color-mauve: #9c7f72;       /* muted mauve-brown — occasional card variation */
+
+  /* Typography */
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ============================================
+   GLOBAL BASE STYLES
+   ============================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-brown-soft font-sans antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-brown;
+  }
+}
