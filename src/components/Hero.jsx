@@ -2,6 +2,7 @@
 function Hero() {
   return (
     <section
+    
     //mainly contains jsx+tailwind css
       id="home"
       className="relative flex min-h-screen items-center overflow-hidden bg-cream px-6 pt-28 pb-16 md:px-12"
