@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 // e.g. <section id="journey"> inside Education.jsx.
 const NAV_LINKS = [
   { id: "about", label: "About" },
-  { id: "journey", label: "Journey" },
+  { id: "education", label: "Education" },
   { id: "toolkit", label: "Toolkit" },
   { id: "projects", label: "Projects" },
   { id: "highlights", label: "Highlights" },
