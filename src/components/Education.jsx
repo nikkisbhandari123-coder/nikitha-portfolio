@@ -44,7 +44,12 @@ function Education() {
 
       <div className="relative mx-auto max-w-5xl">
         <div ref={headerRef} className="mb-20 transition-all duration-700 ease-out" style={{ opacity: headerIn ? 1 : 0, transform: headerIn ? 'none' : 'translateY(24px)' }}>
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em]" style={{ color: C.brown }}>03 — Education</p>
+          <div className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden="true" />
+            <p className="font-sans text-xs font-medium tracking-[0.2em] text-brown-soft uppercase">
+             03-EDUCATION 
+            </p>
+          </div>
           <h2 className="mb-4" style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2rem,5vw,4rem)', lineHeight: 1.08, fontStyle: 'italic', color: C.dark }}>
             From curious kid to<br /><span style={{ color: '#5c1f2e' }}>VJTI engineer.</span>
           </h2>

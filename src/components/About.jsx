@@ -10,23 +10,20 @@ function About() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden bg-[#eee0d0] px-6 py-24 md:px-12 md:py-32"
+     className="relative flex min-h-screen items-center overflow-hidden bg-[#E8D9B8] px-6 pt-28 pb-16 md:px-12"
     >
-      {/* Background image */}
-      <img
-        src="/assets/about-bg.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full select-none object-cover"
-      />
+      
 
       <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-14 md:grid-cols-[1.25fr_1fr] md:gap-12">
 
         {/* ---------- LEFT COLUMN ---------- */}
         <div>
-          <p className="font-sans text-[11px] tracking-[0.28em] text-[#C9A87C] uppercase">
-            02 — About Me
-          </p>
+         <div className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden="true" />
+            <p className="font-sans text-xs font-medium tracking-[0.2em] text-brown-soft uppercase">
+             02-ABOUT ME 
+            </p>
+          </div>
 
           <h2 className="mt-3 font-serif text-[2.6rem] leading-[1.15] text-[#3D2B1F] md:text-[3.1rem]">
             A little more about me.
