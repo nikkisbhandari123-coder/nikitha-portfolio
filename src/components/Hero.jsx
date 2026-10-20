@@ -28,8 +28,8 @@ function Hero() {
           </div>
 
           <p className="mt-6 max-w-md font-sans text-base leading-relaxed text-brown-soft">
-            Building things at the edge of design and engineering — at VJTI
-            Mumbai and beyond.
+            Computer Science & Engineering Student
+            Building software and intuitive digital experiences
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -49,32 +49,32 @@ function Hero() {
           </div>
 
           {/* Info / social row */}
-          <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-brown/10 pt-6 font-sans text-xs text-brown-soft">
+          <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-brown/10 pt-6 font-sans text-sm text-brown-soft">
             <span className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-olive" aria-hidden="true" />
+              <span className="h-2 w-2 rounded-full bg-olive" aria-hidden="true" />
               B.Tech CSE · 2025–29
             </span>
 
             <span className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-burgundy" aria-hidden="true" />
+              <span className="h-2 w-2 rounded-full bg-burgundy" aria-hidden="true" />
               Mumbai, India
             </span>
 
             <span className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden="true" />
+              <span className="h-2 w-2 rounded-full bg-gold" aria-hidden="true" />
               Open to internships
             </span>
 
             <span className="ml-auto flex gap-2">
               <a
-                href="#"
+                href="https://github.com/nikkisbhandari123-coder"
                 className="rounded-full border border-brown/20 px-4 py-1.5 tracking-wide uppercase hover:border-gold hover:text-gold"
               >
                 GitHub
               </a>
 
               <a
-                href="#"
+                href="https://www.linkedin.com/in/nikitha-bhandari-b17a123a6"
                 className="rounded-full border border-brown/20 px-4 py-1.5 tracking-wide uppercase hover:border-gold hover:text-gold"
               >
                 LinkedIn
@@ -99,6 +99,7 @@ function Hero() {
             <defs>
               <clipPath id="circleClip">
                 <circle cx="200" cy="200" r="168" />
+                 
               </clipPath>
             </defs>
 
@@ -150,6 +151,7 @@ function Hero() {
               strokeOpacity="0.15"
               strokeWidth="1"
             />
+            
 
             {/* petals — pointed almond shape, drawn back-to-front so gold sits on top */}
             {[

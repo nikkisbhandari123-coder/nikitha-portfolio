@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Rajdhani:wght@600&family=Mada:wght@500&display=swap");
+
+/* ============ EDIT LOOK HERE ============ */
+.stack-marquee {
+  /* heading */
+  --stack-heading-color: #1b2340;
+  --stack-font-heading: "Poppins", system-ui, sans-serif;
+
+  /* card */
+  --stack-card-bg: #cfd8bf;      /* soft sage / sand */
+  --stack-card-radius: 32px;
+  --stack-card-pad-y: 24px;
+  --stack-rows-gap: 20px;
+  --stack-fade: 6%;              /* edge fade width; 0% = hard edges */
+
+  /* pills */
+  --stack-pill-bg: #b4573f;      /* softened terracotta */
+  --stack-pill-bg-hover: #c4664d;
+  --stack-pill-text: #fbf6ec;    /* off-white */
+  --stack-pill-radius: 14px;
+  --stack-pill-pad: 12px 20px;
+  --stack-pill-size: 16px;
+  --stack-font-pill: "Rajdhani", "Mada", system-ui, sans-serif;
+
+  /* stars + spacing */
+  --stack-star: #d6a73a;         /* warm mustard */
+  --stack-star-size: 24px;
+  --stack-gap: 16px;
+
+  /* card width cap (desktop only, see media query below) */
+  --stack-max-width: 360px;
+}
+/* ========================================= */
+
+.stack-marquee__heading {
+  margin: 0 0 20px;
+  font-family: var(--stack-font-heading);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.1;
+  color: var(--stack-heading-color);
+}
+
+.stack-card {
+  background: var(--stack-card-bg);
+  border-radius: var(--stack-card-radius);
+  padding: var(--stack-card-pad-y) 0;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.stack-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(59, 40, 29, 0.18);
+}
+
+.stack-card__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-rows-gap);
+}
+
+/* soft fade on left/right edges (remove class "stack-card--fade" to disable) */
+.stack-card--fade .stack-card__rows {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--stack-fade),
+    #000 calc(100% - var(--stack-fade)),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--stack-fade),
+    #000 calc(100% - var(--stack-fade)),
+    transparent
+  );
+}
+
+.marquee-row {
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation-duration: var(--row-duration, 35s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* "right" = items travel left -> right, "left" = items travel right -> left */
+.marquee-track--left  { animation-name: stack-marquee-left; }
+.marquee-track--right { animation-name: stack-marquee-right; }
+
+@keyframes stack-marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes stack-marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* pause all rows when hovering the card */
+.stack-card:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* each group ends with one gap of padding so the -50% loop is seamless */
+.marquee-group {
+  display: flex;
+  align-items: center;
+  gap: var(--stack-gap);
+  margin: 0;
+  padding: 0 var(--stack-gap) 0 0;
+  list-style: none;
+  flex-shrink: 0;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: var(--stack-gap);
+  flex-shrink: 0;
+}
+
+.marquee-pill {
+  white-space: nowrap;
+  background: var(--stack-pill-bg);
+  color: var(--stack-pill-text);
+  border-radius: var(--stack-pill-radius);
+  padding: var(--stack-pill-pad);
+  font-family: var(--stack-font-pill);
+  font-weight: 600;
+  font-size: var(--stack-pill-size);
+  line-height: 1.2;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.marquee-pill:hover {
+  transform: scale(1.06);
+  background: var(--stack-pill-bg-hover);
+}
+
+.marquee-star {
+  flex-shrink: 0;
+  width: var(--stack-star-size);
+  height: var(--stack-star-size);
+  color: var(--stack-star);
+}
+
+/* desktop: narrow card + optional fixed height */
+@media (min-width: 1024px) {
+  .stack-marquee {
+    max-width: var(--stack-max-width);
+  }
+
+  /* Uncomment to match the height of the brown card; adjust the number
+  .stack-card {
+    height: 300px;
+    display: flex;
+    align-items: center;
+  }
+  .stack-card__rows {
+    width: 100%;
+  }
+  */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .stack-card:hover { transform: none; }
+  .marquee-pill:hover { transform: none; }
+}
