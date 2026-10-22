@@ -46,3 +46,132 @@
     @apply font-display text-brown;
   }
 }
+
+/* ==========================================================================
+   Hero animations
+   Tweak the look and feel from the variables below.
+   ========================================================================== */
+
+:root {
+  /* Entrance */
+  --hero-duration: 700ms;      /* length of each reveal */
+  --hero-stagger: 1;           /* multiplies every delay: 0.5 = faster, 1.5 = slower */
+  --hero-rise: 16px;           /* how far text travels upward while fading in */
+
+  /* Illustration float */
+  --float-distance: 10px;      /* up/down travel */
+  --float-tilt: 0.6deg;        /* set to 0deg to disable the tilt */
+  --float-duration: 7s;        /* one full up-and-back cycle */
+
+  /* Ambient dot pulse */
+  --pulse-duration: 3.2s;
+
+  --hero-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Entrance sequence ---------- */
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(var(--hero-rise)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* `backwards` (not `both`) so the final state is released after the
+   animation ends and hover transforms on children keep working. */
+.hero-reveal {
+  animation: hero-rise var(--hero-duration) var(--hero-ease) backwards;
+  animation-delay: calc(var(--d, 0ms) * var(--hero-stagger));
+}
+
+.hero-fade {
+  animation: hero-fade calc(var(--hero-duration) * 1.1) ease-out backwards;
+  animation-delay: calc(var(--d, 0ms) * var(--hero-stagger));
+}
+
+/* ---------- Illustration ---------- */
+
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(calc(var(--float-distance) * -1)) rotate(var(--float-tilt)); }
+}
+
+.hero-illustration {
+  /* Fade in first, then float forever. Opacity and transform don't clash. */
+  animation:
+    hero-fade 900ms ease-out backwards,
+    hero-float var(--float-duration) ease-in-out infinite;
+  animation-delay:
+    calc(300ms * var(--hero-stagger)),
+    0s;
+  will-change: transform;
+}
+
+/* ---------- Ambient detail: the small gold dot beside the label ---------- */
+
+@keyframes hero-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+.hero-dot-pulse {
+  animation: hero-pulse var(--pulse-duration) ease-in-out infinite;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn-lift {
+  transition:
+    transform 300ms var(--hero-ease),
+    background-color 300ms ease,
+    border-color 300ms ease,
+    color 300ms ease;
+}
+
+.btn-lift:hover,
+.btn-lift:focus-visible {
+  transform: translateY(-2px);
+}
+
+.btn-lift:active {
+  transform: translateY(0);
+  transition-duration: 120ms;
+}
+
+.btn-arrow {
+  display: inline-block;
+  transition: transform 300ms var(--hero-ease);
+}
+
+.btn-lift:hover .btn-arrow,
+.btn-lift:focus-visible .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal,
+  .hero-fade,
+  .hero-illustration,
+  .hero-dot-pulse {
+    animation: none;
+  }
+
+  .btn-lift,
+  .btn-arrow {
+    transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+  }
+
+  .btn-lift:hover,
+  .btn-lift:focus-visible,
+  .btn-lift:active,
+  .btn-lift:hover .btn-arrow,
+  .btn-lift:focus-visible .btn-arrow {
+    transform: none;
+  }
+}

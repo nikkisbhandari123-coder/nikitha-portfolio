@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // The six main sections, in order. Each "id" should match the
 // id attribute you give that section once you build it out,
@@ -15,6 +15,27 @@ const NAV_LINKS = [
 function Navbar() {
   const [activeId, setActiveId] = useState("about");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // --- Sliding active indicator (desktop). We move one gold dot with a
+  // CSS transform instead of re-rendering; it is measured only when the
+  // active link changes or the window resizes.
+  const indicatorRef = useRef(null);
+  const nodeRefs = useRef({});
+
+  useLayoutEffect(() => {
+    const placeIndicator = () => {
+      const node = nodeRefs.current[activeId];
+      const dot = indicatorRef.current;
+      // The desktop thread is display:none on mobile, so skip until visible.
+      if (!node || !dot || node.offsetParent === null) return;
+      dot.style.transform = `translate(${node.offsetLeft}px, ${node.offsetTop}px)`;
+      dot.style.opacity = "1";
+    };
+
+    placeIndicator();
+    window.addEventListener("resize", placeIndicator);
+    return () => window.removeEventListener("resize", placeIndicator);
+  }, [activeId]);
 
   // --- Scroll-spy: watch which section is on screen and highlight
   // the matching nav link. Sections that don't exist yet are simply
@@ -76,11 +97,20 @@ function Navbar() {
           </svg>
 
           <ul className="relative flex items-center gap-1">
+            {/* the one gold dot that slides between links */}
+            <span
+              ref={indicatorRef}
+              aria-hidden="true"
+              className="pointer-events-none absolute top-0 left-0 h-1.5 w-1.5 rounded-full bg-gold opacity-0 transition-transform duration-500 ease-out motion-reduce:transition-none"
+            />
             {NAV_LINKS.map((link) => {
               const isActive = activeId === link.id;
               return (
                 <li key={link.id}>
-                  <a href={`#${link.id}`} className="group flex flex-col items-center px-4 py-1">
+                  <a
+                    href={`#${link.id}`}
+                    className="group flex flex-col items-center rounded-sm px-4 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+                  >
                     <span
                       className={`text-sm tracking-wide transition-colors duration-300 ${
                         isActive ? "font-medium text-gold" : "text-brown-soft group-hover:text-brown"
@@ -89,11 +119,19 @@ function Navbar() {
                       {link.label}
                     </span>
                     {/* leaf-like node marking this point on the thread */}
+                    {/* fixed 6px slot so nothing shifts; the sliding dot sits on top of the active one */}
                     <span
-                      className={`mt-2 rounded-full transition-all duration-300 ${
-                        isActive ? "h-1.5 w-1.5 bg-gold" : "h-1 w-1 bg-brown/30 group-hover:bg-brown/60"
-                      }`}
-                    />
+                      ref={(el) => {
+                        nodeRefs.current[link.id] = el;
+                      }}
+                      className="mt-2 flex h-1.5 w-1.5 items-center justify-center"
+                    >
+                      <span
+                        className={`h-1 w-1 rounded-full transition-all duration-300 ${
+                          isActive ? "scale-0 bg-gold" : "bg-brown/30 group-hover:bg-brown/60"
+                        }`}
+                      />
+                    </span>
                   </a>
                 </li>
               );
